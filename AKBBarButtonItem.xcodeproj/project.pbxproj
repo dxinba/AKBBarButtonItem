@@ -14,6 +14,7 @@
 		15491C2C1E77C16A005D25E4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15491C2A1E77C16A005D25E4 /* LaunchScreen.storyboard */; };
 		15491C371E77C16A005D25E4 /* AKBBarButtonItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C361E77C16A005D25E4 /* AKBBarButtonItemTests.m */; };
 		15491C421E77C16B005D25E4 /* AKBBarButtonItemUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C411E77C16B005D25E4 /* AKBBarButtonItemUITests.m */; };
+		15491C591E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C581E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		15491C3D1E77C16B005D25E4 /* AKBBarButtonItemUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AKBBarButtonItemUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15491C411E77C16B005D25E4 /* AKBBarButtonItemUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AKBBarButtonItemUITests.m; sourceTree = "<group>"; };
 		15491C431E77C16B005D25E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15491C571E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AKBLeftBarButton.h"; sourceTree = "<group>"; };
+		15491C581E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AKBLeftBarButton.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +106,7 @@
 				15491C201E77C16A005D25E4 /* AppDelegate.m */,
 				15491C221E77C16A005D25E4 /* ViewController.h */,
 				15491C231E77C16A005D25E4 /* ViewController.m */,
+				15491C561E77CE40005D25E4 /* Source */,
 				15491C281E77C16A005D25E4 /* Assets.xcassets */,
 				15491C2A1E77C16A005D25E4 /* LaunchScreen.storyboard */,
 				15491C2D1E77C16A005D25E4 /* Info.plist */,
@@ -135,6 +139,15 @@
 				15491C431E77C16B005D25E4 /* Info.plist */,
 			);
 			path = AKBBarButtonItemUITests;
+			sourceTree = "<group>";
+		};
+		15491C561E77CE40005D25E4 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				15491C571E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.h */,
+				15491C581E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.m */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15491C591E77CE40005D25E4 /* UIViewController+AKBLeftBarButton.m in Sources */,
 				15491C241E77C16A005D25E4 /* ViewController.m in Sources */,
 				15491C211E77C16A005D25E4 /* AppDelegate.m in Sources */,
 				15491C1E1E77C16A005D25E4 /* main.m in Sources */,
@@ -494,6 +508,7 @@
 				15491C481E77C16B005D25E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15491C491E77C16B005D25E4 /* Build configuration list for PBXNativeTarget "AKBBarButtonItemTests" */ = {
 			isa = XCConfigurationList;
@@ -502,6 +517,7 @@
 				15491C4B1E77C16B005D25E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15491C4C1E77C16B005D25E4 /* Build configuration list for PBXNativeTarget "AKBBarButtonItemUITests" */ = {
 			isa = XCConfigurationList;
@@ -510,6 +526,7 @@
 				15491C4E1E77C16B005D25E4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

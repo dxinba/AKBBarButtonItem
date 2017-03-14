@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "UIViewController+AKBLeftBarButton.h"
 @interface ViewController ()
 
 @end
@@ -16,7 +16,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setCustomerViewAction:@selector(aaa) imageName:@"sm" andTag:1];
+    
+}
+
+- (void)aaa {
+    NSLog(@"123");
 }
 
 
