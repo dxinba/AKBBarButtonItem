@@ -20,7 +20,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setCustomerViewAction:@selector(aaa) imageName:@"sm" andTag:1];
-    
+
 }
 
 - (void)aaa {
