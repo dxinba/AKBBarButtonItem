@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "UIViewController+AKBLeftBarButton.h"
+#import "UIViewController+AKBBarButtonItems.h"
 @interface ViewController ()
 
 @end
@@ -18,8 +18,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self setCustomerViewAction:@selector(aaa) imageName:@"sm" andTag:1];
+    [self setCustomViewAction:@selector(aaa) imageName:@"sm" andTag:1];
 
 }
 
