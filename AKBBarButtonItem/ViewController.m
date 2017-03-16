@@ -18,14 +18,22 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    [self setCustomViewAction:@selector(aaa) imageName:@"sm" andTag:1];
-
+    
+    [self addBarButtonItemWithTitle:@"a"];
+    [self addBarButtonItemWithTitle:@"b"];
+    [self addBarButtonItemWithTitle:@"c"];
+    [self addBarButtonItemWithTitle:@"d"];
+    
+    [self addBarButtonItemWithTitle:@"1" position:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"2" position:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"3" position:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"4" position:BarPositionLeft];
 }
 
-- (void)aaa {
-    NSLog(@"123");
+-(void)barButtonItemClick:(UIButton *)btn{
+    NSLog(@"%zi",btn.tag);
+    [self.navigationController pushViewController:[ViewController new] animated:YES];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -7,24 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+
 /**
  * Default is Right
  */
-typedef NS_ENUM(NSInteger, BarPosition) {
+typedef NS_ENUM(NSUInteger, BarPosition) {
+    BarPositionRight,
     BarPositionLeft,
-    BarPositionRight
 };
 
 @interface UIViewController (AKBBarButtonItems)
 
-- (void)setCustomViewWithImage:(NSString *)imageName;
+- (void)barButtonItemClick:(UIButton *)btn;
 
-- (void)setCustomViewWithText:(NSString *)text;
-
-- (void)setCustomViewWithImage:(NSString *)imageName positon:(BarPosition)position;
-
-- (void)setCustomViewWithText:(NSString *)text positon:(BarPosition)position;
-
-- (void)setCustomViewAction:(SEL)action imageName:(NSString *)imageName andTag:(NSInteger)tag;
+- (void)addBarButtonItemWithTitle:(NSString *)title;
+- (void)addBarButtonItemWithTitle:(NSString *)title position:(BarPosition)position;
 
 @end
