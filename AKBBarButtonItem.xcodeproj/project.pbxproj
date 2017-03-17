@@ -15,6 +15,7 @@
 		15491C371E77C16A005D25E4 /* AKBBarButtonItemTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C361E77C16A005D25E4 /* AKBBarButtonItemTests.m */; };
 		15491C421E77C16B005D25E4 /* AKBBarButtonItemUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C411E77C16B005D25E4 /* AKBBarButtonItemUITests.m */; };
 		15491C5F1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */; };
+		15491C681E7BD73E005D25E4 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C671E7BD73E005D25E4 /* UIDevice+Info.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		15491C431E77C16B005D25E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15491C5D1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AKBBarButtonItems.h"; sourceTree = "<group>"; };
 		15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AKBBarButtonItems.m"; sourceTree = "<group>"; };
+		15491C661E7BD73E005D25E4 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
+		15491C671E7BD73E005D25E4 /* UIDevice+Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Info.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +109,7 @@
 				15491C201E77C16A005D25E4 /* AppDelegate.m */,
 				15491C221E77C16A005D25E4 /* ViewController.h */,
 				15491C231E77C16A005D25E4 /* ViewController.m */,
+				15491C651E7BD72E005D25E4 /* Vendor */,
 				15491C561E77CE40005D25E4 /* Source */,
 				15491C281E77C16A005D25E4 /* Assets.xcassets */,
 				15491C2A1E77C16A005D25E4 /* LaunchScreen.storyboard */,
@@ -148,6 +152,15 @@
 				15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		15491C651E7BD72E005D25E4 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				15491C661E7BD73E005D25E4 /* UIDevice+Info.h */,
+				15491C671E7BD73E005D25E4 /* UIDevice+Info.m */,
+			);
+			path = Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +231,7 @@
 				TargetAttributes = {
 					15491C181E77C16A005D25E4 = {
 						CreatedOnToolsVersion = 8.2;
+						DevelopmentTeam = 7JAE999JTU;
 						ProvisioningStyle = Automatic;
 					};
 					15491C311E77C16A005D25E4 = {
@@ -286,6 +300,7 @@
 				15491C241E77C16A005D25E4 /* ViewController.m in Sources */,
 				15491C211E77C16A005D25E4 /* AppDelegate.m in Sources */,
 				15491C1E1E77C16A005D25E4 /* main.m in Sources */,
+				15491C681E7BD73E005D25E4 /* UIDevice+Info.m in Sources */,
 				15491C5F1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,7 +440,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7JAE999JTU;
 				INFOPLIST_FILE = AKBBarButtonItem/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.v.AKBBarButtonItem;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -436,7 +453,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 7JAE999JTU;
 				INFOPLIST_FILE = AKBBarButtonItem/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.v.AKBBarButtonItem;
 				PRODUCT_NAME = "$(TARGET_NAME)";

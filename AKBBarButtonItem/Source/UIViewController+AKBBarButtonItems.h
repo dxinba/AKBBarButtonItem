@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+//typedef void(^barItemBlock)();
+
 /**
  * Default is Right
  */
@@ -22,18 +24,20 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
  */
 - (void)barButtonItemClick:(UIButton *)btn;
 
+//- (void)addWithTitle:(NSString *)title useBlock:(barItemBlock)block;
+
 /**
- *  添加文字按钮，默认右边
+ *  添加文字按钮，默认添加在右边
  */
 - (void)addBarButtonItemWithTitle:(NSString *)title;
 
 - (void)addBarButtonItemWithTitle:(NSString *)title on:(BarPosition)position;
 
 /**
- *  
+ *  添加多个文字按钮，默认添加在右边
  */
-//- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles;
+- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles;
 
-//- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position;
+- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position;
 
 @end
