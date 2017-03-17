@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
  */
 - (void)addBarButtonItemWithTitle:(NSString *)title;
 
-- (void)addBarButtonItemWithTitle:(NSString *)title position:(BarPosition)position;
+- (void)addBarButtonItemWithTitle:(NSString *)title on:(BarPosition)position;
 
 /**
  *  

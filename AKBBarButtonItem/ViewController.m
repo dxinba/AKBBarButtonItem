@@ -24,10 +24,10 @@
     [self addBarButtonItemWithTitle:@"c"];
     [self addBarButtonItemWithTitle:@"d"];
     
-    [self addBarButtonItemWithTitle:@"1" position:BarPositionLeft];
-    [self addBarButtonItemWithTitle:@"2" position:BarPositionLeft];
-    [self addBarButtonItemWithTitle:@"3" position:BarPositionLeft];
-    [self addBarButtonItemWithTitle:@"4" position:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"1" on:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"2" on:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"3" on:BarPositionLeft];
+    [self addBarButtonItemWithTitle:@"4" on:BarPositionLeft];
 }
 
 -(void)barButtonItemClick:(UIButton *)btn{
