@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 
 @interface UIViewController (AKBBarButtonItems)
 /**
- *
+ *  在vc中重写该方法获得回调事件
  */
 - (void)barButtonItemClick:(UIButton *)btn;
 
@@ -32,8 +32,8 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 /**
  *  
  */
-//- (void)addBarButtonItemWithTitles:(NSArray *)titles;
+//- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles;
 
-//- (void)addBarButtonItemWithTitles:(NSArray *)titles position:(BarPosition)position;
+//- (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position;
 
 @end
