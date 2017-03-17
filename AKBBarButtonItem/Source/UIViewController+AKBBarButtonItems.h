@@ -17,10 +17,23 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 };
 
 @interface UIViewController (AKBBarButtonItems)
-
+/**
+ *
+ */
 - (void)barButtonItemClick:(UIButton *)btn;
 
+/**
+ *  添加文字按钮，默认右边
+ */
 - (void)addBarButtonItemWithTitle:(NSString *)title;
+
 - (void)addBarButtonItemWithTitle:(NSString *)title position:(BarPosition)position;
+
+/**
+ *  
+ */
+//- (void)addBarButtonItemWithTitles:(NSArray *)titles;
+
+//- (void)addBarButtonItemWithTitles:(NSArray *)titles position:(BarPosition)position;
 
 @end
