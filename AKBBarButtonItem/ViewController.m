@@ -22,22 +22,22 @@
 //    [self addBarButtonItemWithTitle:@"a"];
 //    [self addBarButtonItemWithTitle:@"b"];
 //    [self addBarButtonItemWithTitle:@"c"];
-    [self addBarButtonItemWithTitle:@"d"];
+//    [self addBarButtonItemWithTitle:@"d"];
     
     [self addBarButtonItemWithTitles:@[@"11", @"22"]];
     [self addBarButtonItemWithTitles:@[@"33", @"44"] on:BarPositionLeft];
     
-    [self addBarButtonItemWithTitle:@"1" on:BarPositionLeft];
+//    [self addBarButtonItemWithTitle:@"1" on:BarPositionLeft];
 //    [self addBarButtonItemWithTitle:@"2" on:BarPositionLeft];
 //    [self addBarButtonItemWithTitle:@"3" on:BarPositionLeft];
 //    [self addBarButtonItemWithTitle:@"4" on:BarPositionLeft];
     
 }
 
-//-(void)barButtonItemClick:(UIButton *)btn{
-//    NSLog(@"%zi",btn.tag);
+-(void)barButtonItemClick:(UIButton *)btn{
+    NSLog(@"%zi",btn.tag);
 //    [self.navigationController pushViewController:[ViewController new] animated:YES];
-//}
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

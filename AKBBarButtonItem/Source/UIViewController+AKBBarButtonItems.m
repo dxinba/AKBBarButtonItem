@@ -16,8 +16,8 @@
 }
 
 - (void)addBarButtonItemWithTitle:(NSString *)title on:(BarPosition)position {
+    if (title.length<1) return;//不能为空
     NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
-    
     [self addBarButtonItem:[self createBtnWithTitle:title imageName:nil tag:arrayM.lastObject.tag + 1] to:arrayM on:position];
 }
 
@@ -27,11 +27,19 @@
 
 - (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position {
     // 想直接传这个 titles 进 addBarButtonItem:to:on ，那样这个获取 arrayM 方法要写到 addBarButtonItem:to:on 里头
-    // 那样 addBarButtonItem:to:on 的第一个参数要变成 id 
+    // 那样 addBarButtonItem:to:on 的第一个参数要变成 id
+    if (titles.count<1) return;//不能为空
+    
     NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
-    for (int i = 0; i < titles.count; i ++) {
-        [self addBarButtonItem:[self createBtnWithTitle:titles[i] imageName:nil tag:arrayM.lastObject.tag + 1] to:arrayM on:position];
+    
+    NSInteger tag=arrayM.lastObject.tag;//获取最后一个的tag
+    
+    for (NSInteger i=0; i<titles.count; i++) {
+        if (titles[i].length<1) continue;//不能为空
+        [arrayM addObject:[self createBtnWithTitle:titles[i] imageName:nil tag:++tag]];
     }
+    
+    [self addBarButtonItem:nil to:arrayM on:position];
 }
 
 #pragma mark - privte
@@ -51,9 +59,11 @@
 }
 
 ///添加按钮的放入方法里调用,代码复用
-- (void)addBarButtonItem:(id)item to:(NSMutableArray<UIBarButtonItem *> *)arrayM on:(BarPosition)position {
+- (void)addBarButtonItem:(UIBarButtonItem *)item to:(NSMutableArray<UIBarButtonItem *> *)arrayM on:(BarPosition)position {
     //
-    [arrayM addObject:item];
+    if (item!=nil) {
+        [arrayM addObject:item];
+    }
     
     if (position == BarPositionRight) {
         self.navigationItem.rightBarButtonItems = arrayM;
@@ -89,7 +99,7 @@
 
 
 - (UIFont *)barFont {
-    CGFloat size = 14.0;
+    CGFloat size = 16.0;
     if ([UIScreen mainScreen].scale > 2.0) {//6plus
         size *= 1.5;
     }
