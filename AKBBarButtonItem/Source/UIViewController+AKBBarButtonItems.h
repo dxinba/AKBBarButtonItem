@@ -1,10 +1,10 @@
-//
-//  UIViewController+AKBBarButtonItems.h
-//  AKBBarButtonItem
-//
-//  Created by v on 17/3/15.
-//  Copyright © 2017年 v. All rights reserved.
-//
+//     ▁▁       ▁▁  ▁▁   ▁▁
+//    /  \      ▏▕ / /   ▏
+//   / /\ \     ▏  \/    ▏
+//  / /▁▁\ \    ▏ \ \    ▏
+// / /▔▔▔▔\ \   ▏▕ \ \   ▏
+/// /      \ \  ▏▕  \ \  ▏
+//▔▔        ▔▔  ▔▔   ▔▔  ▔▔  TODO:B怎么弄?
 
 #import <UIKit/UIKit.h>
 
@@ -39,5 +39,19 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 - (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles;
 
 - (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position;
+
+/**
+ *  添加图片按钮，默认添加在右边
+ */
+- (void)addBarButtonItemWithImageName:(NSString *)imageName;
+
+- (void)addBarButtonItemWithImageName:(NSString *)imageName on:(BarPosition)position;
+
+/**
+ *  添加多个图片按钮，默认添加在右边
+ */
+- (void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames;
+
+- (void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames on:(BarPosition)position;
 
 @end

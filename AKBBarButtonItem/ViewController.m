@@ -34,10 +34,10 @@
     
 }
 
--(void)barButtonItemClick:(UIButton *)btn{
-    NSLog(@"%zi",btn.tag);
+//-(void)barButtonItemClick:(UIButton *)btn{
+//    NSLog(@"%zi",btn.tag);
 //    [self.navigationController pushViewController:[ViewController new] animated:YES];
-}
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -1,22 +1,26 @@
-//
-//  UIViewController+AKBBarButtonItems.m
-//  AKBBarButtonItem
-//
-//  Created by v on 17/3/15.
-//  Copyright © 2017年 v. All rights reserved.
-//
+//     ▁▁       ▁▁  ▁▁   ▁▁
+//    /  \      ▏▕ / /   ▏
+//   / /\ \     ▏  \/    ▏
+//  / /▁▁\ \    ▏ \ \    ▏
+// / /▔▔▔▔\ \   ▏▕ \ \   ▏
+/// /      \ \  ▏▕  \ \  ▏
+//▔▔        ▔▔  ▔▔   ▔▔  ▔▔  TODO:B怎么弄?
 
 #import "UIViewController+AKBBarButtonItems.h"
 #import "UIDevice+Info.h"
 
+@interface AKBButton : UIButton
+@property (nonatomic,assign) NSInteger badgeNumber;
+@end
+
 @implementation UIViewController (AKBBarButtonItems)
 
+#pragma mark - title
 - (void)addBarButtonItemWithTitle:(NSString *)title {
     [self addBarButtonItemWithTitle:title on:BarPositionRight];
 }
 
 - (void)addBarButtonItemWithTitle:(NSString *)title on:(BarPosition)position {
-    if (title.length<1) return;//不能为空
     NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
     [self addBarButtonItem:[self createBtnWithTitle:title imageName:nil tag:arrayM.lastObject.tag + 1] to:arrayM on:position];
 }
@@ -26,27 +30,46 @@
 }
 
 - (void)addBarButtonItemWithTitles:(NSArray<NSString *> *)titles on:(BarPosition)position {
-    // 想直接传这个 titles 进 addBarButtonItem:to:on ，那样这个获取 arrayM 方法要写到 addBarButtonItem:to:on 里头
-    // 那样 addBarButtonItem:to:on 的第一个参数要变成 id
-    if (titles.count<1) return;//不能为空
-    
     NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
     
     NSInteger tag=arrayM.lastObject.tag;//获取最后一个的tag
     
     for (NSInteger i=0; i<titles.count; i++) {
-        if (titles[i].length<1) continue;//不能为空
         [arrayM addObject:[self createBtnWithTitle:titles[i] imageName:nil tag:++tag]];
     }
     
     [self addBarButtonItem:nil to:arrayM on:position];
 }
 
-#pragma mark - privte
+#pragma mark - image
+-(void)addBarButtonItemWithImageName:(NSString *)imageName{
+    [self addBarButtonItemWithImageName:imageName on:BarPositionRight];
+}
 
+-(void)addBarButtonItemWithImageName:(NSString *)imageName on:(BarPosition)position{
+    NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
+    [self addBarButtonItem:[self createBtnWithTitle:nil imageName:imageName tag:arrayM.lastObject.tag + 1] to:arrayM on:position];
+}
+
+-(void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames{
+    [self addBarButtonItemWithImageNames:imageNames on:BarPositionRight];
+}
+
+-(void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames on:(BarPosition)position{
+    NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
+    
+    NSInteger tag=arrayM.lastObject.tag;//获取最后一个的tag
+    
+    for (NSInteger i=0; i<imageNames.count; i++) {
+        [arrayM addObject:[self createBtnWithTitle:nil imageName:imageNames[i] tag:++tag]];
+    }
+    
+    [self addBarButtonItem:nil to:arrayM on:position];
+}
+
+#pragma mark - privte
 ///获得可变按钮数组，并添加间距
 - (NSMutableArray<UIBarButtonItem *> *)barButtonItemsMutableCopy:(BarPosition)position {
-    
     NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:position == BarPositionRight ? self.navigationItem.rightBarButtonItems : self.navigationItem.leftBarButtonItems];
     
     if (arrayM.count < 1) {//第一次添加按钮,缩小距离屏幕边缘的间距
@@ -60,7 +83,6 @@
 
 ///添加按钮的放入方法里调用,代码复用
 - (void)addBarButtonItem:(UIBarButtonItem *)item to:(NSMutableArray<UIBarButtonItem *> *)arrayM on:(BarPosition)position {
-    //
     if (item!=nil) {
         [arrayM addObject:item];
     }
@@ -75,18 +97,25 @@
 
 #pragma mark - UIBarButtonItem
 - (UIBarButtonItem *)createBtnWithTitle:(NSString *)title imageName:(NSString *)imageName tag:(NSInteger)tag {
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    AKBButton *btn = [AKBButton buttonWithType:UIButtonTypeCustom];
     
     if (title.length > 0) {//添加标题
         [btn setTitle:title forState:UIControlStateNormal];
-        btn.titleLabel.font = [self barFont];
+        CGFloat size = 16.0;
+        if ([UIScreen mainScreen].scale > 2.0) {//6plus
+            size *= 1.5;
+        }
+        btn.titleLabel.font = [UIFont systemFontOfSize:size];
+        
+        if (imageName.length > 0) {//添加图片
+            [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+        }
+    }
+    else{
+        [btn setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }
     
-    if (imageName.length > 0) {//添加图片
-        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    }
-    
-    btn.backgroundColor = [UIColor redColor];
+//    btn.backgroundColor = [UIColor redColor];
     [btn addTarget:self action:@selector(barButtonItemClick:) forControlEvents:UIControlEventTouchUpInside];
     
     btn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);// TODO: 大小还需根据真机使用情况进行调整
@@ -97,18 +126,11 @@
     return item;
 }
 
-
-- (UIFont *)barFont {
-    CGFloat size = 16.0;
-    if ([UIScreen mainScreen].scale > 2.0) {//6plus
-        size *= 1.5;
-    }
-    return [UIFont systemFontOfSize:size];
-}
-
 #pragma mark - public
-- (void)barButtonItemClick:(UIButton *)btn {
-    NSLog(@"%@",btn);
+- (void)barButtonItemClick:(AKBButton *)btn {
+    //test
+//    NSLog(@"%@",btn);
+    btn.badgeNumber=1;
 }
 
 
@@ -127,4 +149,65 @@
 //    block();
 //}
 
+
 @end
+
+#pragma mark - AKBButton
+@interface AKBButton ()
+
+@property (nonatomic,weak) UILabel *badgeLabel;
+
+@end
+
+
+@implementation AKBButton
+
+-(void)setBadgeNumber:(NSInteger)badgeNumber{
+    if (_badgeNumber!=badgeNumber) {
+        _badgeNumber=badgeNumber;
+        
+        if (_badgeNumber==0) {
+            [_badgeLabel removeFromSuperview];
+            return;
+        }
+        
+        if (_badgeLabel<0) {
+            self.badgeLabel.text=@" ";
+        }
+        else{
+            self.badgeLabel.text=_badgeNumber<99?[NSString stringWithFormat:@"%zi",_badgeNumber]:@"99";
+        }
+        
+        //setFrame
+        [_badgeLabel sizeToFit];
+        CGFloat h=_badgeLabel.bounds.size.height;
+        CGFloat half_h=h/2;
+        _badgeLabel.frame=CGRectMake(self.bounds.size.width-h, 0, h, h);//右上角
+        _badgeLabel.layer.cornerRadius=half_h;
+    }
+}
+
+- (UILabel *)badgeLabel {
+    if (!_badgeLabel) {
+        UILabel *label = [[UILabel alloc] init];
+        label.backgroundColor=[UIColor redColor];
+        label.textColor=[UIColor whiteColor];
+        CGFloat size = 11.0;
+        if ([UIScreen mainScreen].scale > 2.0) {//6plus
+            size *= 1.5;
+        }
+        label.font=[UIFont systemFontOfSize:size];
+        label.layer.masksToBounds=YES;
+        label.textAlignment=NSTextAlignmentCenter;
+        _badgeLabel=label;
+        [self addSubview:_badgeLabel];
+    }
+    return _badgeLabel;
+}
+
+@end
+
+
+
+
+
