@@ -9,10 +9,6 @@
 #import "UIViewController+AKBBarButtonItems.h"
 #import "UIDevice+Info.h"
 
-@interface AKBButton : UIButton
-@property (nonatomic,assign) NSInteger badgeNumber;
-@end
-
 @implementation UIViewController (AKBBarButtonItems)
 
 #pragma mark - title
@@ -67,6 +63,38 @@
     [self addBarButtonItem:nil to:arrayM on:position];
 }
 
+#pragma mark - image+title
+/**
+ *  添加图片+标题按钮，默认添加在右边
+ */
+- (void)addBarButtonItemWithImageName:(NSString *)imageName title:(NSString *)title{
+    [self addBarButtonItemWithImageName:imageName title:title on:BarPositionRight];
+}
+
+- (void)addBarButtonItemWithImageName:(NSString *)imageName title:(NSString *)title on:(BarPosition)position{
+    NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
+    [self addBarButtonItem:[self createBtnWithTitle:title imageName:imageName tag:arrayM.lastObject.tag + 1] to:arrayM on:position];
+}
+
+/**
+ *  添加多个图片+标题按钮，默认添加在右边
+ */
+- (void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames titles:(NSArray<NSString *> *)titles{
+    [self addBarButtonItemWithImageNames:imageNames titles:titles on:BarPositionRight];
+}
+
+- (void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames titles:(NSArray<NSString *> *)titles on:(BarPosition)position{
+    NSMutableArray<UIBarButtonItem *> *arrayM = [self barButtonItemsMutableCopy:position];
+    
+    NSInteger tag=arrayM.lastObject.tag;//获取最后一个的tag
+    
+    for (NSInteger i=0; i<imageNames.count; i++) {
+        [arrayM addObject:[self createBtnWithTitle:titles[i] imageName:imageNames[i] tag:++tag]];
+    }
+    
+    [self addBarButtonItem:nil to:arrayM on:position];
+}
+
 #pragma mark - privte
 ///获得可变按钮数组，并添加间距
 - (NSMutableArray<UIBarButtonItem *> *)barButtonItemsMutableCopy:(BarPosition)position {
@@ -107,19 +135,16 @@
         }
         btn.titleLabel.font = [UIFont systemFontOfSize:size];
         
-        if (imageName.length > 0) {//添加图片
-            [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-        }
     }
-    else{
-        [btn setBackgroundImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    
+    if (imageName.length > 0) {//添加图片
+        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     }
     
 //    btn.backgroundColor = [UIColor redColor];
     [btn addTarget:self action:@selector(barButtonItemClick:) forControlEvents:UIControlEventTouchUpInside];
     
     btn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);// TODO: 大小还需根据真机使用情况进行调整
-    
     [btn sizeToFit];
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     item.tag = btn.tag = tag;
@@ -128,16 +153,25 @@
 
 #pragma mark - public
 - (void)barButtonItemClick:(AKBButton *)btn {
-    //test
 //    NSLog(@"%@",btn);
-    btn.badgeNumber=1;
 }
 
 
 
 
+//test
+- (void)addWithTitle:(NSString *)title useBlock:(barItemBlock)block{
+    AKBButton *btn=[AKBButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [btn sizeToFit];
+    btn.callback=block;
+    [btn addTarget:self action:@selector(blockCallback:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc] initWithCustomView:btn];
+}
 
-
+-(void)blockCallback:(AKBButton *)btn{
+    btn.callback(btn);
+}
 
 
 
@@ -171,19 +205,19 @@
             return;
         }
         
-        if (_badgeLabel<0) {
-            self.badgeLabel.text=@" ";
+        if (_badgeNumber<0) {
+            self.badgeLabel.text=nil;
+            _badgeLabel.frame=CGRectMake(0, 0, 10, 10);
+            _badgeLabel.center=CGPointMake(self.bounds.size.width-10, 10);
         }
         else{
             self.badgeLabel.text=_badgeNumber<99?[NSString stringWithFormat:@"%zi",_badgeNumber]:@"99";
+            //setFrame
+            [_badgeLabel sizeToFit];
+            CGFloat size=MAX(_badgeLabel.bounds.size.height, _badgeLabel.bounds.size.width)+4;
+            _badgeLabel.frame=CGRectMake(self.bounds.size.width-size, 0, size, size);//右上角
         }
-        
-        //setFrame
-        [_badgeLabel sizeToFit];
-        CGFloat h=_badgeLabel.bounds.size.height;
-        CGFloat half_h=h/2;
-        _badgeLabel.frame=CGRectMake(self.bounds.size.width-h, 0, h, h);//右上角
-        _badgeLabel.layer.cornerRadius=half_h;
+        _badgeLabel.layer.cornerRadius=_badgeLabel.frame.size.height/2;
     }
 }
 
@@ -203,6 +237,10 @@
         [self addSubview:_badgeLabel];
     }
     return _badgeLabel;
+}
+
+-(void)dealloc{
+    NSLog(@"btn被销毁");
 }
 
 @end
