@@ -21,17 +21,13 @@
     self.view.backgroundColor = [UIColor whiteColor];
     _badgeNumber=-1;
     
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithTitle:@"收藏" style:UIBarButtonItemStylePlain target:nil action:nil];
-    
-    __weak typeof(self) weaSelf=self;
-    [self addWithTitle:@"返回" useBlock:^(AKBButton *btn) {
-        [weaSelf.navigationController popViewControllerAnimated:YES];
-    }];
     [self addBarButtonItemWithTitle:@"返回" on:BarPositionLeft];
     [self addBarButtonItemWithImageName:@"alarm_n" on:BarPositionLeft];
     
     [self addBarButtonItemWithImageName:@"message"];
     [self addBarButtonItemWithImageName:@"star_n" title:@"收藏"];
+    
+    NSLog(@"%@",[self barButtonWithTag:11].currentTitle);
 }
 
 -(void)barButtonItemClick:(AKBButton *)btn{

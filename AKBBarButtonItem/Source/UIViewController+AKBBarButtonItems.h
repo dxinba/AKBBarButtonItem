@@ -78,4 +78,5 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 
 - (void)addBarButtonItemWithImageNames:(NSArray<NSString *> *)imageNames titles:(NSArray<NSString *> *)titles on:(BarPosition)position;
 
+- (AKBButton *)barButtonWithTag:(NSInteger)tag;
 @end

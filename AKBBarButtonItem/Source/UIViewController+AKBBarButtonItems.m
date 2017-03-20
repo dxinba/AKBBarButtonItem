@@ -156,6 +156,22 @@
 //    NSLog(@"%@",btn);
 }
 
+-(AKBButton *)barButtonWithTag:(NSInteger)tag{
+    if (tag>0 && tag<9) {
+        for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
+            if (tag==item.tag) return item.customView;
+        }
+    }
+    
+    if (tag>9) {
+        for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+            if (tag==item.tag) return item.customView;
+        }
+    }
+    
+    return nil;
+}
+
 
 
 
