@@ -95,6 +95,22 @@
     [self addBarButtonItem:nil to:arrayM on:position];
 }
 
+- (void)removeBarButtonWithTag:(NSInteger)tag {
+    NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:tag > 10 ? self.navigationItem.rightBarButtonItems : self.navigationItem.leftBarButtonItems];
+    NSLog(@"%@", arrayM);
+    for (int i = 0; i < arrayM.count; i ++) {
+        if (arrayM[i].tag == tag) {
+            [arrayM removeObjectAtIndex:i];
+            if (tag > 9) {
+                self.navigationItem.rightBarButtonItems = arrayM;
+            }
+            else {
+                self.navigationItem.leftBarButtonItems = arrayM;
+            }
+        }
+    }
+}
+
 #pragma mark - privte
 ///获得可变按钮数组，并添加间距
 - (NSMutableArray<UIBarButtonItem *> *)barButtonItemsMutableCopy:(BarPosition)position {

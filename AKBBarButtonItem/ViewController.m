@@ -28,6 +28,9 @@
     [self addBarButtonItemWithImageName:@"star_n" title:@"收藏"];
     
     NSLog(@"%@",[self barButtonWithTag:11].currentTitle);
+    
+    
+    
 }
 
 -(void)barButtonItemClick:(AKBButton *)btn{
@@ -61,7 +64,9 @@
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    [self.navigationController pushViewController:[ViewController new] animated:YES];
+    [self removeBarButtonWithTag:11];
+    
+//    [self.navigationController pushViewController:[ViewController new] animated:YES];
 }
 
 -(void)dealloc{
