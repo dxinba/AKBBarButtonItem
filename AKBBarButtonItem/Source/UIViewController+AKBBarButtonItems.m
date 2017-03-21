@@ -96,8 +96,7 @@
 }
 
 - (void)removeBarButtonWithTag:(NSInteger)tag {
-    NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:tag > 10 ? self.navigationItem.rightBarButtonItems : self.navigationItem.leftBarButtonItems];
-    NSLog(@"%@", arrayM);
+    NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:tag > 9 ? self.navigationItem.rightBarButtonItems : self.navigationItem.leftBarButtonItems];
     for (int i = 0; i < arrayM.count; i ++) {
         if (arrayM[i].tag == tag) {
             [arrayM removeObjectAtIndex:i];
