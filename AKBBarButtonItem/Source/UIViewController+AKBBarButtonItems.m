@@ -7,7 +7,8 @@
 //▔▔        ▔▔  ▔▔   ▔▔  ▔▔  TODO:B怎么弄?
 
 #import "UIViewController+AKBBarButtonItems.h"
-#import "UIDevice+Info.h"
+//#import "UIDevice+Info.h"
+
 
 @implementation UIViewController (AKBBarButtonItems)
 
@@ -187,9 +188,6 @@
     return nil;
 }
 
-
-
-
 //test
 - (void)addWithTitle:(NSString *)title useBlock:(barItemBlock)block{
     AKBButton *btn=[AKBButton buttonWithType:UIButtonTypeCustom];
@@ -207,12 +205,6 @@
 
 
 
-// 使用Block回调（单个）
-//- (void)addWithTitle:(NSString *)title useBlock:(barItemBlock)block {
-//    [self addBarButtonItemWithTitle:title on:BarPositionRight];
-//    // 添加Button的方法不能这么添加
-//    block();
-//}
 
 
 @end
@@ -226,6 +218,7 @@
 
 
 @implementation AKBButton
+
 
 -(void)setBadgeNumber:(NSInteger)badgeNumber{
     if (_badgeNumber!=badgeNumber) {

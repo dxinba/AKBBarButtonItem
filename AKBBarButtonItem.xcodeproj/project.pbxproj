@@ -16,6 +16,7 @@
 		15491C421E77C16B005D25E4 /* AKBBarButtonItemUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C411E77C16B005D25E4 /* AKBBarButtonItemUITests.m */; };
 		15491C5F1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */; };
 		15491C681E7BD73E005D25E4 /* UIDevice+Info.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C671E7BD73E005D25E4 /* UIDevice+Info.m */; };
+		15491C6F1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 15491C6E1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AKBBarButtonItems.m"; sourceTree = "<group>"; };
 		15491C661E7BD73E005D25E4 /* UIDevice+Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Info.h"; sourceTree = "<group>"; };
 		15491C671E7BD73E005D25E4 /* UIDevice+Info.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Info.m"; sourceTree = "<group>"; };
+		15491C6D1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+AKBBarButtonItem.h"; sourceTree = "<group>"; };
+		15491C6E1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AKBBarButtonItem.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +153,8 @@
 			children = (
 				15491C5D1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.h */,
 				15491C5E1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m */,
+				15491C6D1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.h */,
+				15491C6E1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 			files = (
 				15491C241E77C16A005D25E4 /* ViewController.m in Sources */,
 				15491C211E77C16A005D25E4 /* AppDelegate.m in Sources */,
+				15491C6F1E80FDEF005D25E4 /* UIViewController+AKBBarButtonItem.m in Sources */,
 				15491C1E1E77C16A005D25E4 /* main.m in Sources */,
 				15491C681E7BD73E005D25E4 /* UIDevice+Info.m in Sources */,
 				15491C5F1E78E07A005D25E4 /* UIViewController+AKBBarButtonItems.m in Sources */,

@@ -28,6 +28,9 @@ typedef NS_ENUM(NSUInteger, BarPosition) {
 @end
 
 @interface UIViewController (AKBBarButtonItems)
+
+
+
 /**
  *  在vc中重写该方法获得回调事件
  */
