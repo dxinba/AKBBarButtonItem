@@ -7,21 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <objc/runtime.h>
+
+@interface AKBButton : UIButton
+
+@property (nonatomic,assign) NSInteger badgeNumber;
+
+@end
 
 @interface UIViewController (AKBBarButtonItem)
-
+///暂存按钮数据
 @property (nonatomic, strong) NSMutableArray<UIBarButtonItem *> *AKBItems;
 
+- (UIViewController *(^)(NSString *))addBarTitle;
+- (UIViewController *(^)(NSArray<NSString *> *))addBarTitles;
+- (UIViewController *(^)(NSString *))addBarImage;
+- (UIViewController *(^)(NSArray<NSString *> *))addBarImages;
+- (UIViewController *(^)(NSString *,NSString *))addBarImageAndTitle;
+- (UIViewController *(^)(NSArray<NSString *> *,NSArray<NSString *> *))addBarImagesAndTitles;
 
-- (UIViewController *(^)(NSString *title)) addBarTitle;
-- (void (^)()) onBarLeft;
-- (void (^)()) onBarRight;
+- (void (^)())onBarLeft;
+- (void (^)())onBarRight;
 
-
-@property (nonatomic, strong) UIBarButtonItem *akbItem;
-- (UIViewController *(^)()) add;
-- (void (^)(NSString *title)) title;
-- (void (^)()) onRight;
-- (void (^)(NSString *action)) withAction;
+- (void)barButtonItemClick:(AKBButton *)btn;
 @end

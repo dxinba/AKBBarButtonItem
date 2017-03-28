@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 //#import "UIViewController+AKBBarButtonItems.h"
-//#import "UIViewController+AKBBarButtonItem.h"
+#import "UIViewController+AKBBarButtonItem.h"
 @interface ViewController ()
 @property (nonatomic,assign) NSInteger badgeNumber;
 @end
@@ -17,8 +17,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = [UIColor whiteColor];
+    self.addBarImagesAndTitles(@[@"star_h",@"alarm_h"],@[@"zxv",@"asd"]).onBarLeft();
+    self.addBarImagesAndTitles(@[@"star_h",@"alarm_h"],@[@"zxv",@"asd"]).onBarRight();
+//    self.addBarTitle(@"zcv").addBarImage(@"star_h").onBarLeft();
+//    self.addBarTitle(@"asd").addBarImage(@"alarm_h").onBarRight();
+//    self.addBarTitles(@[@"zcv",@"asd"]).onBarLeft();
+//    self.addBarImages(@[@"star_h",@"alarm_h"]).onBarRight();
 //    _badgeNumber=-1;
 //    
 //    [self addBarButtonItemWithTitle:@"返回" on:BarPositionLeft];
@@ -41,7 +46,10 @@
 //    }];
 }
 
-//-(void)barButtonItemClick:(AKBButton *)btn{
+-(void)barButtonItemClick:(AKBButton *)btn{
+    NSLog(@"%@",btn);
+    [self.navigationController popViewControllerAnimated:YES];
+}
 //    switch (btn.tag) {
 //        case 1:
 //            [self.navigationController popViewControllerAnimated:YES];
@@ -71,15 +79,15 @@
 //    }
 //}
 
-//-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 //    [self removeBarButtonWithTag:11];
-//    
-////    [self.navigationController pushViewController:[ViewController new] animated:YES];
-//}
+    
+    [self.navigationController pushViewController:[ViewController new] animated:YES];
+}
 
-//-(void)dealloc{
-//    NSLog(@"controller被销毁");
-//}
+-(void)dealloc{
+    NSLog(@"controller被销毁");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

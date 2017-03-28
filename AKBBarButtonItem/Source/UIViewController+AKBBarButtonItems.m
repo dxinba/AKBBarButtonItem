@@ -102,11 +102,12 @@
         if (arrayM[i].tag == tag) {
             [arrayM removeObjectAtIndex:i];
             if (tag > 9) {
-                self.navigationItem.rightBarButtonItems = arrayM;
+                [self.navigationItem setRightBarButtonItems:arrayM animated:YES];
             }
             else {
-                self.navigationItem.leftBarButtonItems = arrayM;
+                [self.navigationItem setLeftBarButtonItems:arrayM animated:YES];
             }
+            break;
         }
     }
 }
@@ -150,7 +151,7 @@
             size *= 1.5;
         }
         btn.titleLabel.font = [UIFont systemFontOfSize:size];
-        
+        [btn setTitleColor:[UIColor colorWithWhite:1.0 alpha:.5] forState:UIControlStateHighlighted];
     }
     
     if (imageName.length > 0) {//添加图片
