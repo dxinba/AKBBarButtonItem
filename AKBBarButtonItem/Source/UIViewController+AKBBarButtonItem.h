@@ -1,32 +1,46 @@
-//
-//  UIViewController+AKBBarButtonItem.h
-//  AKBBarButtonItem
-//
-//  Created by v on 17/3/21.
-//  Copyright © 2017年 v. All rights reserved.
-//
 
 #import <UIKit/UIKit.h>
 
-@interface AKBButton : UIButton
+@protocol AKBBarButtonItemDelegate <NSObject>
 
-@property (nonatomic,assign) NSInteger badgeNumber;
+///自定义返回按钮
+- (UIBarButtonItem *)akb_backButton;
 
 @end
 
-@interface UIViewController (AKBBarButtonItem)
-///暂存按钮数据
-@property (nonatomic, strong) NSMutableArray<UIBarButtonItem *> *AKBItems;
+@interface UIViewController (AKBBarButtonItem)<AKBBarButtonItemDelegate>
 
-- (UIViewController *(^)(NSString *))addBarTitle;
-- (UIViewController *(^)(NSArray<NSString *> *))addBarTitles;
-- (UIViewController *(^)(NSString *))addBarImage;
-- (UIViewController *(^)(NSArray<NSString *> *))addBarImages;
-- (UIViewController *(^)(NSString *,NSString *))addBarImageAndTitle;
-- (UIViewController *(^)(NSArray<NSString *> *,NSArray<NSString *> *))addBarImagesAndTitles;
+///添加标题按钮,可以传入字符串(NSString)或数组(NSArray)以添加多个
+- (UIViewController *(^)(id))akb_title;
 
-- (void (^)())onBarLeft;
-- (void (^)())onBarRight;
+///添加图片按钮,可以传入图片名(NSString)或数组(NSArray)以添加多个
+- (UIViewController *(^)(id))akb_image;
 
-- (void)barButtonItemClick:(AKBButton *)btn;
+///添加图片+标题按钮,第一个参数是图片名(NSString),第二个是标题(NSString)
+- (UIViewController *(^)(NSString *,NSString *))akb_imageAndTitle;
+
+///添加自己创建的按钮
+- (UIViewController *(^)(UIBarButtonItem *))akb_item;
+
+///添加返回按钮
+- (UIViewController *(^)())akb_addBackButton;
+
+///添加在左边
+- (void (^)())akb_onLeft;
+
+///添加在右边
+- (void (^)())akb_onRight;
+
+///获取barItem的btn
+- (UIButton *)akb_getBarButtonWithTag:(NSInteger)tag;
+
+///移除item
+- (void)akb_removeBarButtonWithTag:(NSInteger)tag;
+
+///按钮点击回调(在controller中重写该方法即可)
+- (void)akb_barButtonItemClick:(UIButton *)sender;
+
+///返回按钮点击回调(在controller中重写该方法即可,不会触发👆的方法)
+- (void)akb_backButtonItemClick;
+
 @end

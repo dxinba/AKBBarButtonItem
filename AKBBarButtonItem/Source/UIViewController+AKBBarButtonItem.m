@@ -1,97 +1,121 @@
-//
-//  UIViewController+AKBBarButtonItem.m
-//  AKBBarButtonItem
-//
-//  Created by v on 17/3/21.
-//  Copyright © 2017年 v. All rights reserved.
-//
 
 #import "UIViewController+AKBBarButtonItem.h"
 #import <objc/runtime.h>
 
 @implementation UIViewController (AKBBarButtonItem)
 
-static const char* AKBItemsKey = "AKBItemsKey";
-
-#pragma mark - 分类添加属性
-- (NSMutableArray<UIBarButtonItem *> *)AKBItems{
-    return objc_getAssociatedObject(self, AKBItemsKey);
-}
-
-- (void)setAKBItems:(NSMutableArray<UIBarButtonItem *> *)AKBItems{
-    objc_setAssociatedObject(self, AKBItemsKey, AKBItems, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
--(NSMutableArray<UIBarButtonItem *> *)AKBGetItems{
-    if (self.AKBItems==nil) {
-        self.AKBItems=[NSMutableArray array];
+#pragma mark - 添加属性
+///暂存按钮
+- (NSMutableArray<UIBarButtonItem *> *)akb_Items {
+    //_cmd在Objective-C的方法中表示当前方法的selector，正如同self表示当前方法调用的对象实例。_cmd == @selector(akb_Items)
+    NSMutableArray *arrayM = objc_getAssociatedObject(self, _cmd);
+    if (!arrayM) {
+        arrayM = [NSMutableArray array];
+        [self akb_setItems:arrayM];
     }
-    return self.AKBItems;
+    return arrayM;
 }
 
--(UIViewController *(^)(NSString *))addBarTitle{
-    return ^UIViewController *(NSString *title) {
-        [[self AKBGetItems] addObject:[self createBtnWithTitle:title imageName:nil]];
-        return self;
-    };
+- (void)akb_setItems:(NSMutableArray<UIBarButtonItem *> *)items {
+    objc_setAssociatedObject(self, @selector(akb_Items), items, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
--(UIViewController *(^)(NSArray<NSString *> *))addBarTitles{
-    return ^UIViewController *(NSArray<NSString *> *titles) {
-        for (NSString *title in titles) {
-            [[self AKBGetItems] addObject:[self createBtnWithTitle:title imageName:nil]];
+#pragma mark - public
+- (UIViewController *(^)(id))akb_title {
+    return ^UIViewController *(id title) {
+        NSMutableArray *items = [self akb_Items];
+        if ([title isKindOfClass:[NSString class]]) {
+            [items addObject:[self akb_createBtnWithTitle:title image:nil]];
+        } else {
+            for (NSString *str in title) {
+                [items addObject:[self akb_createBtnWithTitle:str image:nil]];
+            }
         }
         return self;
     };
 }
 
--(UIViewController *(^)(NSString *))addBarImage{
-    return ^UIViewController *(NSString *image) {
-        [[self AKBGetItems] addObject:[self createBtnWithTitle:nil imageName:image]];
-        return self;
-    };
-}
-
--(UIViewController *(^)(NSArray<NSString *> *))addBarImages{
-    return ^UIViewController *(NSArray<NSString *> *images) {
-        for (NSString *image in images) {
-            [[self AKBGetItems] addObject:[self createBtnWithTitle:nil imageName:image]];
+- (UIViewController *(^)(id))akb_image {
+    return ^UIViewController *(id image) {
+        NSMutableArray *items = [self akb_Items];
+        if ([image isKindOfClass:[NSString class]]) {
+            [items addObject:[self akb_createBtnWithTitle:nil image:image]];
+        } else {
+            for (NSString *str in image) {
+                [items addObject:[self akb_createBtnWithTitle:nil image:str]];
+            }
         }
         return self;
     };
 }
 
--(UIViewController *(^)(NSString *, NSString *))addBarImageAndTitle{
+- (UIViewController *(^)(NSString *, NSString *))akb_imageAndTitle {
     return ^UIViewController *(NSString *image,NSString *title) {
-        [[self AKBGetItems] addObject:[self createBtnWithTitle:title imageName:image]];
+        [[self akb_Items] addObject:[self akb_createBtnWithTitle:title image:image]];
         return self;
     };
 }
 
--(UIViewController *(^)(NSArray<NSString *> *, NSArray<NSString *> *))addBarImagesAndTitles{
-    return ^UIViewController *(NSArray<NSString *> *images, NSArray<NSString *> *titles) {
-        [images enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [[self AKBGetItems] addObject:[self createBtnWithTitle:titles[idx] imageName:obj]];
-        }];
+- (UIViewController *(^)(UIBarButtonItem *))akb_item {
+    return ^UIViewController *(UIBarButtonItem *item) {
+        [[self akb_Items] addObject:item];
         return self;
     };
 }
 
--(void (^)())onBarLeft{
-    return ^(){
-        [self addBarButtonItemOnLeft:YES];
+- (UIViewController *(^)())akb_addBackButton {
+    return ^UIViewController *(UIBarButtonItem *item) {
+        NSMutableArray<UIBarButtonItem *> *arrayM=[self akb_barButtonItemsMutableCopyOnLeft:YES];
+        [arrayM addObject:[self akb_backButton]];
+        return self;
     };
 }
 
--(void (^)())onBarRight{
+- (void (^)())akb_onLeft {
     return ^(){
-        [self addBarButtonItemOnLeft:NO];
+        [self akb_addBarButtonItemOnLeft:YES];
     };
+}
+
+- (void (^)())akb_onRight {
+    return ^(){
+        [self akb_addBarButtonItemOnLeft:NO];
+    };
+}
+
+- (UIButton *)akb_getBarButtonWithTag:(NSInteger)tag {
+    if (tag>0 && tag<10) {
+        for (UIBarButtonItem *item in self.navigationItem.leftBarButtonItems) {
+            if (tag==item.tag) return item.customView;
+        }
+    }
+    
+    if (tag > 10) {
+        for (UIBarButtonItem *item in self.navigationItem.rightBarButtonItems) {
+            if (tag==item.tag) return item.customView;
+        }
+    }
+    
+    return nil;
+}
+
+- (void)akb_removeBarButtonWithTag:(NSInteger)tag {
+    NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:tag > 10 ? self.navigationItem.rightBarButtonItems : self.navigationItem.leftBarButtonItems];
+    for (NSInteger i = 0; i < arrayM.count; i ++) {
+        if (arrayM[i].tag == tag) {
+            [arrayM removeObjectAtIndex:i];
+            if (tag > 10)
+                [self.navigationItem setRightBarButtonItems:arrayM animated:YES];
+            else
+                [self.navigationItem setLeftBarButtonItems:arrayM animated:YES];
+            break;
+        }
+    }
 }
 
 #pragma mark - privte
 ///获得可变按钮数组，并添加间距
-- (NSMutableArray<UIBarButtonItem *> *)barButtonItemsMutableCopyOnLeft:(BOOL)left {
+- (NSMutableArray<UIBarButtonItem *> *)akb_barButtonItemsMutableCopyOnLeft:(BOOL)left {
     NSMutableArray<UIBarButtonItem *> *arrayM = [NSMutableArray arrayWithArray:left ? self.navigationItem.leftBarButtonItems : self.navigationItem.rightBarButtonItems];
     
     if (arrayM.count < 1) {//第一次添加按钮,缩小距离屏幕边缘的间距
@@ -104,16 +128,17 @@ static const char* AKBItemsKey = "AKBItemsKey";
 }
 
 ///添加按钮的放入方法里调用,代码复用
-- (void)addBarButtonItemOnLeft:(BOOL)left {
-    NSMutableArray<UIBarButtonItem *> *arrayM=[self barButtonItemsMutableCopyOnLeft:left];
+- (void)akb_addBarButtonItemOnLeft:(BOOL)left {
+    NSMutableArray<UIBarButtonItem *> *arrayM=[self akb_barButtonItemsMutableCopyOnLeft:left];
     
-    for (UIBarButtonItem *item in self.AKBItems) {
-        item.tag=item.customView.tag=arrayM.lastObject.tag+1;
+    NSMutableArray *items = [self akb_Items];
+    for (UIBarButtonItem *item in items) {
+        item.tag = item.customView.tag = arrayM.lastObject.tag + 1;
         [arrayM addObject:item];
     }
     
-    [self.AKBItems removeAllObjects];
-    self.AKBItems=nil;
+    [items removeAllObjects];
+    [self akb_setItems:nil];
     
     if (left)
         self.navigationItem.leftBarButtonItems = arrayM;
@@ -122,26 +147,31 @@ static const char* AKBItemsKey = "AKBItemsKey";
     
 }
 
-#pragma mark - UIBarButtonItem
-- (UIBarButtonItem *)createBtnWithTitle:(NSString *)title imageName:(NSString *)imageName {
-    AKBButton *btn = [AKBButton buttonWithType:UIButtonTypeCustom];
+#pragma mark - 创建按钮
+- (UIBarButtonItem *)akb_createBtnWithTitle:(NSString *)title image:(NSString *)image {
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     
     if (title.length > 0) {//添加标题
         [btn setTitle:title forState:UIControlStateNormal];
         CGFloat size = 16.0;
-        if ([UIScreen mainScreen].scale > 2.0) {//6plus
+        if ([UIScreen mainScreen].scale > 2.0) {//plus
             size *= 1.5;
         }
         btn.titleLabel.font = [UIFont systemFontOfSize:size];
-        [btn setTitleColor:[UIColor colorWithWhite:1.0 alpha:.5] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor colorWithWhite:1.0 alpha:.3] forState:UIControlStateHighlighted];
     }
     
-    if (imageName.length > 0) {//添加图片
-        [btn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    if (image.length > 0) {//添加图片
+        UIImage *img = [UIImage imageNamed:image];
+        [btn setImage:img forState:UIControlStateNormal];
+        btn.adjustsImageWhenHighlighted=NO;
+        dispatch_async(dispatch_queue_create(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [btn setImage:[self akb_imageByApplyingAlpha:0.3 image:img] forState:UIControlStateHighlighted];
+        });
     }
     
     //    btn.backgroundColor = [UIColor redColor];
-    [btn addTarget:self action:@selector(barButtonItemClick:) forControlEvents:UIControlEventTouchUpInside];
+    [btn addTarget:self action:@selector(akb_barButtonItemClick:) forControlEvents:UIControlEventTouchUpInside];
     
     btn.contentEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);// TODO: 大小还需根据真机使用情况进行调整
     [btn sizeToFit];
@@ -149,9 +179,33 @@ static const char* AKBItemsKey = "AKBItemsKey";
     return item;
 }
 
-#pragma mark - public
-- (void)barButtonItemClick:(AKBButton *)btn {
-    //    NSLog(@"%@",btn);
+//设置图片透明度
+- (UIImage *)akb_imageByApplyingAlpha:(CGFloat)alpha image:(UIImage*)image {
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    CGContextSetAlpha(ctx, alpha);
+    CGContextDrawImage(ctx, area, image.CGImage);
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+#pragma mark - AKBBarButtonItemDelegate
+- (UIBarButtonItem *)akb_backButton {
+    return [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(akb_backButtonItemClick)];
+}
+
+#pragma mark -
+- (void)akb_barButtonItemClick:(UIButton *)sender {
+    
+}
+
+- (void)akb_backButtonItemClick {
+    
 }
 
 @end
