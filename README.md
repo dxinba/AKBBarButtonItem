@@ -44,4 +44,4 @@
 }
 ```
 
-* 还有更多对按钮的操作，请前往源代码查看。
+* 还有更多方法，[请前往源代码查看。](https://github.com/dxinba/AKBBarButtonItem/archive/master.zip)
