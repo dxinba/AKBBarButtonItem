@@ -32,7 +32,7 @@
 * 添加图片+标题按钮
 
 	``` objc
-	self.akb_image(@"图片名A").akb_onRight();
+	self.akb_imageAndTitle(@"图片名A", @"按钮A").akb_onRight();
 	```	
 	
 ## 点击事件
