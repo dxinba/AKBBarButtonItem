@@ -37,7 +37,7 @@
 ///移除item
 - (void)akb_removeBarButtonWithTag:(NSInteger)tag;
 
-///按钮点击回调(在controller中重写该方法即可)
+///按钮点击回调(在controller中重写该方法即可),左边的按钮tag从1开始递增，右边从11开始递增
 - (void)akb_barButtonItemClick:(UIButton *)sender;
 
 ///返回按钮点击回调(在controller中重写该方法即可,不会触发👆的方法)
